@@ -41,13 +41,22 @@ class EChosen extends CWidget
   public $scriptPosition = CClientScript::POS_END;
   
   /**
+   * @var string alternate url for library files.
+   */
+  public $baseUrl = null;
+  
+  /**
    * Apply Chosen plugin to select boxes.
    */
   public function run()
   {
-    // Publish extension assets
-    $assets = Yii::app()->getAssetManager()->publish( Yii::getPathOfAlias(
-      'ext.EChosen' ) . '/assets' );
+    if (is_null($this->baseUrl))
+    {
+      // Publish extension assets
+      $assets = Yii::app()->getAssetManager()->publish( Yii::getPathOfAlias(
+        'ext.EChosen' ) . '/assets' );
+    }
+    else $assets = $this->baseUrl;
     
     // Register extension assets
     $cs = Yii::app()->getClientScript();
